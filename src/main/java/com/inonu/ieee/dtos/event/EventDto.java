@@ -1,36 +1,26 @@
-package com.inonu.ieee.model;
+package com.inonu.ieee.dtos.event;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.inonu.ieee.enums.EventStatus;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
-@Table(name = "events")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Event {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class EventDto {
     private UUID id;
 
-    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
 
-    @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
     private EventStatus status = EventStatus.FUTURE;
 }
