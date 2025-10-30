@@ -1,39 +1,27 @@
-package com.inonu.ieee.model;
+package com.inonu.ieee.dtos.page;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "pages")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-public class Page {
+@NoArgsConstructor
+public class CreatePageDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
-
-    @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
     private String content;
 
-    @Column(nullable = false)
     private String imagePath;
 
-    @Column(nullable = false)
     private boolean status;
 
     public boolean getStatus() {
         return status;
     }
-
     public void setStatus(boolean status) {
         this.status = status;
     }
