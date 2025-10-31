@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -22,8 +23,14 @@ public class SliderController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @GetMapping("")
+    public ResponseEntity<List<SliderDto>> getAll() {
+        List<SliderDto> sliderDtos = sliderService.findAll();
+        return ResponseEntity.ok(sliderDtos);
+    }
+
     @GetMapping("/{id}")
-    public ResponseEntity<SliderDto> findById(@PathVariable UUID id) {
+    public ResponseEntity<SliderDto> getById(@PathVariable UUID id) {
         SliderDto sliderDto = sliderService.findById(id);
         return ResponseEntity.ok(sliderDto);
     }
@@ -37,5 +44,12 @@ public class SliderController {
         return ResponseEntity.ok(response);
     }
 
+    @PutMapping("/{id}")
+    private ResponseEntity<SliderDto> updateSlider(@PathVariable UUID id,
+                                                   @RequestPart String slider, @RequestPart(required = false) MultipartFile image) throws JsonProcessingException {
 
+        CreateSliderDto createSliderDto = objectMapper.readValue(slider, CreateSliderDto.class);
+        SliderDto response = sliderService.update(id, createSliderDto, image);
+        return ResponseEntity.ok(response);
+    }
 }

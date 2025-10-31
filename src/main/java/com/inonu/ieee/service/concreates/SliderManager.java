@@ -41,7 +41,8 @@ public class SliderManager implements ISliderService {
 
     @Override
     public List<SliderDto> findAll() {
-        return List.of();
+        List<Slider> sliders = sliderRepository.findAll();
+        return sliderMapper.sliderListToDtoList(sliders);
     }
 
     @Override
@@ -55,8 +56,32 @@ public class SliderManager implements ISliderService {
     }
 
     @Override
-    public SliderDto update(CreateSliderDto createSliderDto) {
-        return null;
+    public SliderDto update(UUID id, CreateSliderDto dto, MultipartFile image) {
+
+        Optional<Slider> optional = sliderRepository.findById(id);
+
+        if (optional.isEmpty())
+            throw new EntityNotFoundException("Slider not found.");
+
+
+        Slider slider = optional.get();
+
+        if(!image.isEmpty() || image != null)
+        {
+            imageService.deleteImage(slider.getPath());
+
+            String fileName = imageService.uploadImage(image);
+            slider.setPath(fileName);
+        }
+
+        slider.setTitle(dto.getTitle());
+        slider.setDescription(dto.getDescription());
+        slider.setLink(dto.getLink());
+        slider.setSliderOrder(dto.getSliderOrder());
+
+        slider = sliderRepository.save(slider);
+
+        return sliderMapper.sliderToSliderDto(slider);
     }
 
     @Override

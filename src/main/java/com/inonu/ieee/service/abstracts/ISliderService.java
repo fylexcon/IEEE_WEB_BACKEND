@@ -12,6 +12,6 @@ public interface ISliderService {
     public SliderDto findById(UUID id);
     public List<SliderDto> findAll();
     public SliderDto create(CreateSliderDto createSliderDto, MultipartFile image);
-    public SliderDto update(CreateSliderDto createSliderDto);
+    public SliderDto update(UUID id, CreateSliderDto createSliderDto, MultipartFile image);
     public void delete(UUID id);
 }
