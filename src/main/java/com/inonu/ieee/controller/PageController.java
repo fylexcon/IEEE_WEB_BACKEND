@@ -4,13 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inonu.ieee.dtos.page.CreatePageDto;
 import com.inonu.ieee.dtos.page.PageDto;
-import com.inonu.ieee.service.abstracts.IImageService;
 import com.inonu.ieee.service.abstracts.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.UUID;
 
@@ -24,8 +22,6 @@ public class PageController {
     @Autowired
     private IPageService pageService;
 
-    @Autowired
-    private IImageService imageService;
 
     @GetMapping("/{id}")
     public ResponseEntity<PageDto> GetPageById(@PathVariable(name = "id") UUID id) {

@@ -1,18 +1,19 @@
-package com.inonu.ieee.model;
+package com.inonu.ieee.dtos.slider;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-@Entity
-@Table(name = "sliders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Slider {
+public class SliderDto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -22,7 +23,7 @@ public class Slider {
     private String path;
 
     @Column()
-    private int sliderOrder = 0;
+    private int sliderOrder;
 
     @Column()
     private String link;
