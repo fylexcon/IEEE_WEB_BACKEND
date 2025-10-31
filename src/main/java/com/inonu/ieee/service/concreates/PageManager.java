@@ -39,7 +39,7 @@ public class PageManager implements IPageService {
     }
 
     @Override
-    public PageDto createPages(CreatePageDto dto) {
+    public PageDto createPage(CreatePageDto dto) {
 
         Page page = pageRepository.save(pageMapper.createDtoToPage(dto));
         return pageMapper.pageToPageDto(page);
@@ -67,7 +67,7 @@ public class PageManager implements IPageService {
         page.setTitle(dto.getTitle());
         page.setContent(dto.getContent());
         page.setStatus(dto.getStatus());
-        page.setImagePath(dto.getImagePath());
+        page.setImage(dto.getImage());
         page = pageRepository.save(page);
 
         return pageMapper.pageToPageDto(page);

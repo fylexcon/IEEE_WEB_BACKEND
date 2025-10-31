@@ -16,7 +16,7 @@ public class PageDto {
 
     private String content;
 
-    private String imagePath;
+    private String image;
 
     private boolean status;
 }

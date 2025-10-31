@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface IPageService {
     public List<PageDto> getPages();
-    public PageDto createPages(CreatePageDto dto);
+    public PageDto createPage(CreatePageDto dto);
     public PageDto getPageById(UUID id);
     public PageDto updatePage(UUID id, CreatePageDto dto);
     public void deletePage(UUID id);

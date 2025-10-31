@@ -25,10 +25,10 @@ public class Page {
     private String content;
 
     @Column(nullable = false)
-    private String imagePath;
+    private String image;
 
     @Column(nullable = false)
-    private boolean status;
+    private boolean status = true;
 
     public boolean getStatus() {
         return status;

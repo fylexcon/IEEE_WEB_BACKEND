@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,7 +13,7 @@ public class CreatePageDto {
 
     private String content;
 
-    private String imagePath;
+    private String image;
 
     private boolean status;
 

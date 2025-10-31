@@ -16,7 +16,7 @@ public class PageMapper implements IPageMapper {
         Page page = new Page();
         page.setTitle(dto.getTitle());
         page.setContent(dto.getContent());
-        page.setImagePath(dto.getImagePath());
+        page.setImage(dto.getImage());
         page.setStatus(dto.getStatus());
 
         return page;
@@ -30,7 +30,7 @@ public class PageMapper implements IPageMapper {
             PageDto pageDto = new PageDto();
             pageDto.setTitle(page.getTitle());
             pageDto.setContent(page.getContent());
-            pageDto.setImagePath(page.getImagePath());
+            pageDto.setImage(page.getImage());
             pageDto.setId(page.getId());
 
             pageDtoList.add(pageDto);
@@ -44,7 +44,7 @@ public class PageMapper implements IPageMapper {
         Page page = new Page();
         page.setTitle(dto.getTitle());
         page.setContent(dto.getContent());
-        page.setImagePath(dto.getImagePath());
+        page.setImage(dto.getImage());
         page.setId(dto.getId());
 
         return page;
@@ -55,7 +55,7 @@ public class PageMapper implements IPageMapper {
         PageDto dto = new PageDto();
         dto.setTitle(page.getTitle());
         dto.setContent(page.getContent());
-        dto.setImagePath(page.getImagePath());
+        dto.setImage(page.getImage());
         dto.setId(page.getId());
 
         return dto;
