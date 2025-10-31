@@ -29,8 +29,6 @@ public class PageManager implements IPageService {
     private IPageMapper pageMapper;
 
     @Autowired
-    private IEventService eventService;
-    @Autowired
     private IImageService imageService;
 
     @Override
@@ -51,15 +49,16 @@ public class PageManager implements IPageService {
     public PageDto createPage(CreatePageDto dto, MultipartFile image) {
 
         String imageName = imageService.uploadImage(image);
+        dto.setImage(imageName);
+
+        Page page = pageRepository.save(pageMapper.createDtoToPage(dto));
 
         String url = null;
         if (imageName != null && !imageName.isEmpty()) {
             url = ServletUriComponentsBuilder.fromCurrentContextPath().path("api/v1/images/").path(imageName).toUriString();
         }
+        page.setImage(url);
 
-        dto.setImage(url);
-
-        Page page = pageRepository.save(pageMapper.createDtoToPage(dto));
         return pageMapper.pageToPageDto(page);
     }
 
@@ -103,7 +102,11 @@ public class PageManager implements IPageService {
 
         if (optional.isEmpty())
             throw new EntityNotFoundException("Page not found.");
-        else
-            pageRepository.deleteById(id);
+
+        Page page = optional.get();
+        imageService.deleteImage(page.getImage());
+
+        pageRepository.delete(page);
+
     }
 }

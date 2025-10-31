@@ -56,5 +56,11 @@ public class PageController {
         return ResponseEntity.ok(response);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deletePage(@PathVariable(name = "id") UUID id) {
+        pageService.deletePage(id);
+
+        return ResponseEntity.ok().build();
+    }
 
 }
