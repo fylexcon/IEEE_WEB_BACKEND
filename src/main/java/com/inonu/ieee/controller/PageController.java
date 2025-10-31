@@ -38,18 +38,8 @@ public class PageController {
     public ResponseEntity<PageDto> createPage(@RequestPart("page") String pageJson, @RequestPart("image") MultipartFile image) throws JsonProcessingException {
 
         CreatePageDto page = objectMapper.readValue(pageJson, CreatePageDto.class);
-        String imageName = imageService.uploadImage(image);
-        page.setImage(imageName);
 
-        PageDto response = pageService.createPage(page);
-
-        imageName = response.getImage();
-        String url = null;
-        if (imageName != null && !imageName.isEmpty()) {
-            url = ServletUriComponentsBuilder.fromCurrentContextPath().path("api/v1/images/").path(imageName).toUriString();
-        }
-
-        response.setImage(url);
+        PageDto response = pageService.createPage(page, image);
 
         return ResponseEntity.ok(response);
 

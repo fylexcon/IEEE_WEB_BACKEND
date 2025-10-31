@@ -12,6 +12,7 @@ import com.inonu.ieee.service.abstracts.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,16 @@ public class PageManager implements IPageService {
     }
 
     @Override
-    public PageDto createPage(CreatePageDto dto) {
+    public PageDto createPage(CreatePageDto dto, MultipartFile image) {
+
+        String imageName = imageService.uploadImage(image);
+
+        String url = null;
+        if (imageName != null && !imageName.isEmpty()) {
+            url = ServletUriComponentsBuilder.fromCurrentContextPath().path("api/v1/images/").path(imageName).toUriString();
+        }
+
+        dto.setImage(url);
 
         Page page = pageRepository.save(pageMapper.createDtoToPage(dto));
         return pageMapper.pageToPageDto(page);
