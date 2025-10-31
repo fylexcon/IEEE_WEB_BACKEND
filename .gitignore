@@ -16,5 +16,4 @@ Thumbs.db
 logs/
 
 # uploaded files
-./uploads
 ./uploads/*
