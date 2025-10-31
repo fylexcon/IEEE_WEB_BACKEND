@@ -52,4 +52,10 @@ public class SliderController {
         SliderDto response = sliderService.update(id, createSliderDto, image);
         return ResponseEntity.ok(response);
     }
+
+    @DeleteMapping("/{id}")
+    private ResponseEntity deleteSlider(@PathVariable UUID id) {
+        sliderService.delete(id);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -86,6 +86,14 @@ public class SliderManager implements ISliderService {
 
     @Override
     public void delete(UUID id) {
+        Optional<Slider> optional = sliderRepository.findById(id);
 
+        if (optional.isEmpty())
+            throw new EntityNotFoundException("Slider not found.");
+
+        Slider slider = optional.get();
+
+        imageService.deleteImage(slider.getPath());
+        sliderRepository.delete(slider);
     }
 }
