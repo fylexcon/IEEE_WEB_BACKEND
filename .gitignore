@@ -14,3 +14,6 @@ Thumbs.db
 # Logs & temp files
 *.log
 logs/
+
+# uploaded files
+./uploads
