@@ -6,9 +6,12 @@ import com.inonu.ieee.exceptions.EntityNotFoundException;
 import com.inonu.ieee.mappers.abstracts.IPageMapper;
 import com.inonu.ieee.model.Page;
 import com.inonu.ieee.repository.PageRepository;
+import com.inonu.ieee.service.abstracts.IEventService;
+import com.inonu.ieee.service.abstracts.IImageService;
 import com.inonu.ieee.service.abstracts.IPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,11 @@ public class PageManager implements IPageService {
 
     @Autowired
     private IPageMapper pageMapper;
+
+    @Autowired
+    private IEventService eventService;
+    @Autowired
+    private IImageService imageService;
 
     @Override
     public List<PageDto> getPages() {
@@ -56,18 +64,24 @@ public class PageManager implements IPageService {
     }
 
     @Override
-    public PageDto updatePage(UUID id, CreatePageDto dto) {
+    public PageDto updatePage(UUID id, CreatePageDto dto, MultipartFile image) {
         Optional<Page> optional = pageRepository.findById(id);
 
         if (optional.isEmpty())
             throw new EntityNotFoundException("Page not found.");
 
-        Page page = new Page();
-        page.setId(id);
+        Page page = optional.get();
+
+        if(!image.isEmpty() && image != null)
+        {
+            imageService.deleteImage(page.getImage());
+            String imageName = imageService.uploadImage(image);
+            page.setImage(imageName);
+        }
+
         page.setTitle(dto.getTitle());
         page.setContent(dto.getContent());
         page.setStatus(dto.getStatus());
-        page.setImage(dto.getImage());
         page = pageRepository.save(page);
 
         return pageMapper.pageToPageDto(page);
